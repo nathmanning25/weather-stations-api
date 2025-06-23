@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { databaseProviders } from './database.provider';
+import {Module} from '@nestjs/common';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {databaseProviders} from './database.provider';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: () => ({}), // Empty config since DataSource is provided
+      useFactory: () => ({}),
       dataSourceFactory: async () => {
         const dataSource = await databaseProviders[0].useFactory();
         return dataSource;

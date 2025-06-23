@@ -1,19 +1,25 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { WeatherStation } from './entities/weather-station.entity';
+import {Injectable, NotFoundException} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Repository} from 'typeorm';
+import {WeatherStation} from './entities/weather-station.entity';
 
 @Injectable()
 export class WeatherStationsService {
   constructor(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     @InjectRepository(WeatherStation)
     private readonly weatherStationRepository: Repository<WeatherStation>,
   ) {}
 
+  async findByState(state: string): Promise<WeatherStation[]> {
+    return this.weatherStationRepository.find({
+      where: {state},
+      relations: ['measurements'],
+    });
+  }
+
   async findOne(id: number): Promise<WeatherStation> {
     const weatherStation = await this.weatherStationRepository.findOne({
-      where: { id },
+      where: {id},
       relations: ['measurements'],
     });
     if (!weatherStation) {

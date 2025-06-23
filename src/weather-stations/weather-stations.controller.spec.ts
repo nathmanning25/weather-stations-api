@@ -1,5 +1,5 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { WeatherStationsController } from './weather-stations.controller';
+import {Test, TestingModule} from '@nestjs/testing';
+import {WeatherStationsController} from './weather-stations.controller';
 
 describe('WeatherStationsController', () => {
   let controller: WeatherStationsController;
@@ -9,7 +9,9 @@ describe('WeatherStationsController', () => {
       controllers: [WeatherStationsController],
     }).compile();
 
-    controller = module.get<WeatherStationsController>(WeatherStationsController);
+    controller = module.get<WeatherStationsController>(
+      WeatherStationsController,
+    );
   });
 
   it('should be defined', () => {

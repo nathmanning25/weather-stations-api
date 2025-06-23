@@ -5,29 +5,29 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { WeatherStation } from './weather-station.entity';
+import {WeatherStation} from './weather-station.entity';
 
 @Entity('measurements')
 export class Measurement {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'weather_station_id', type: 'integer' })
+  @Column({name: 'weather_station_id', type: 'integer'})
   weatherStationId: number;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column({type: 'varchar', length: 50})
   variable_name: string;
 
-  @Column({ type: 'double precision' })
+  @Column({type: 'double precision'})
   value: number;
 
-  @Column({ type: 'timestamp' })
+  @Column({type: 'timestamp'})
   timestamp: Date;
 
   @ManyToOne(
     () => WeatherStation,
     (weatherStation) => weatherStation.measurements,
   )
-  @JoinColumn({ name: 'weather_station_id' }) // Explicitly map to correct column
+  @JoinColumn({name: 'weather_station_id'})
   weatherStation: WeatherStation;
 }

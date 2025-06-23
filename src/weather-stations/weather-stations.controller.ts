@@ -1,6 +1,6 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
-import { WeatherStationsService } from './weather-stations.service';
-import { WeatherStation } from './entities/weather-station.entity';
+import {Controller, Get, Param, ParseIntPipe, Query} from '@nestjs/common';
+import {WeatherStationsService} from './weather-stations.service';
+import {WeatherStation} from './entities/weather-station.entity';
 
 @Controller('weather-stations')
 export class WeatherStationsController {
@@ -9,8 +9,10 @@ export class WeatherStationsController {
   ) {}
 
   @Get()
-  async findAll(): Promise<WeatherStation[]> {
-    return this.weatherStationsService.findAll();
+  async findAll(@Query('state') state?: string): Promise<WeatherStation[]> {
+    return state
+      ? this.weatherStationsService.findByState(state)
+      : this.weatherStationsService.findAll();
   }
 
   @Get(':id')
