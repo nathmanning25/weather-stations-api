@@ -34,4 +34,12 @@ export class WeatherStationsService {
     });
     return weatherStations;
   }
+
+  async findAllStates(): Promise<string[]> {
+    const result = await this.weatherStationRepository
+      .createQueryBuilder('weatherStation')
+      .select('DISTINCT weatherStation.state', 'state')
+      .getRawMany<{state: string}>();
+    return result.map((row) => row.state).sort();
+  }
 }

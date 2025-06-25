@@ -15,6 +15,11 @@ export class WeatherStationsController {
       : this.weatherStationsService.findAll();
   }
 
+  @Get('states/all')
+  async findAllStates(): Promise<string[]> {
+    return this.weatherStationsService.findAllStates();
+  }
+
   @Get(':id')
   async findOne(
     @Param('id', ParseIntPipe) id: number,
